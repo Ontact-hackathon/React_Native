@@ -1,12 +1,38 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import * as Location from 'expo-location';
 import Home from './Home'
 
 export default function Register({navigation}) {
+    // 컴포넌트
     const [storename, setStorename] = useState('');
     const [name, setName] = useState('');
     const [accountnumber, setAccountnumber] = useState('');
     const [bankname, setBankname] = useState('');
+
+    // 위치
+    const [location, setLocation] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+
+    useEffect(() => {
+        (async () => {
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
+    }, []);
+
+    let text = 'Waiting..';
+    if (errorMsg) {
+        text = errorMsg;
+    } else if (location) {
+        text = JSON.stringify(location);
+    }
 
     return (
        <View style={styles.container}>
@@ -42,6 +68,7 @@ export default function Register({navigation}) {
                     onPress={() => navigation.navigate(Home)}
                 />
             </View>
+            <Text>{text}</Text>
        </View>
     )
 }
