@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MarkerFactory from './MarkerFactory';
 
-export default function Home() {
+export default function Home({navigation}) {
     const data = [
         {
             "id":1,
