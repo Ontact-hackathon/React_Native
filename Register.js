@@ -9,8 +9,9 @@ export default function Register({navigation}) {
     const [name, setName] = useState('');
     const [account, setAccount] = useState('');
     const [bank, setBank] = useState('');
-    let [latitude, setLatitude] = useState('');
-    let [longitude, setLongitude] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [text, setText] = useState('Waiting..');
     const registerRef = useRef();
     // 위치
     const [location, setLocation] = useState('');
@@ -27,20 +28,18 @@ export default function Register({navigation}) {
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
         })();
-    }, []);
-
-    let text = 'Waiting..';
     if (errorMsg) {
-        text = errorMsg;
+        setText(errorMsg);
     } else if (location) {
-        text = '위치 반환 성공';
-        latitude = JSON.stringify(location.coords.latitude);
-        longitude = JSON.stringify(location.coords.longitude);
+        setText('위치 반환 성공');
+        setLatitude(JSON.stringify(location.coords.latitude));
+        setLongitude(JSON.stringify(location.coords.longitude));
     }
+    }, []);
 
     // 버튼 누르면 db에 저장
     const OkButton = () => {
-        fetch("http://localhost:8080/api/register", {
+        fetch("http://10.55.40.51:8080/api/register", {
             method: 'POST',
             headers: {
                 'content-type':'application/json'
