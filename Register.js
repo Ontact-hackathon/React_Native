@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import * as Location from 'expo-location';
 import Home from './Home'
 
 export default function Register({navigation}) {
     // 컴포넌트
-    const [storename, setStorename] = useState('');
+    const [store, setStore] = useState('');
     const [name, setName] = useState('');
-    const [accountnumber, setAccountnumber] = useState('');
-    const [bankname, setBankname] = useState('');
-
+    const [account, setAccount] = useState('');
+    const [bank, setBank] = useState('');
+    let [latitude, setLatitude] = useState('');
+    let [longitude, setLongitude] = useState('');
+    const registerRef = useRef();
     // 위치
     const [location, setLocation] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -31,32 +33,63 @@ export default function Register({navigation}) {
     if (errorMsg) {
         text = errorMsg;
     } else if (location) {
-        text = JSON.stringify(location);
+        text = '위치 반환 성공';
+        latitude = JSON.stringify(location.coords.latitude);
+        longitude = JSON.stringify(location.coords.longitude);
+    }
+
+    // 버튼 누르면 db에 저장
+    const OkButton = () => {
+        fetch("http://localhost:8080/api/register", {
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify({
+                store: store,
+                name: name, 
+                account: account, 
+                bank: bank, 
+                latitude: latitude, 
+                longitude: longitude
+            })
+        })
+        setStore('');
+        setName('');
+        setAccount('');
+        setBank('');
+        registerRef.current.clear();
+        setTimeout(() => console.log("wait"), 3000);
+        navigation.navigate(Home);
     }
 
     return (
        <View style={styles.container}>
            <TextInput
-           value={storename}
-           onChangeText={(storename) => setStorename}
+           ref={registerRef}
+           value={store}
+           onChangeText={(store) => setStore(store)}
            placeholder={'상호명'}
            style={styles.input}
            />
            <TextInput
-           value={storename}
-           onChangeText={(name) => setName}
+           ref={registerRef}
+           value={name}
+           onChangeText={(name) => setName(name)}
            placeholder={'사업자명'}
            style={styles.input}
            />
            <TextInput
-           value={storename}
-           onChangeText={(accountnumber) => setAccountnumber}
+           ref={registerRef}
+           value={account}
+           onChangeText={(account) => setAccount(account)}
            placeholder={'계좌번호'}
            style={styles.input}
            />
            <TextInput
-           value={storename}
-           onChangeText={(bankname) => setBankname}
+           ref={registerRef}
+           value={bank}
+           onChangeText={(bank) => setBank(bank)}
            placeholder={'은행명'}
            style={styles.input}
            />
@@ -65,7 +98,8 @@ export default function Register({navigation}) {
                 <Button
                     title={'등록'}
                     style={styles.button}
-                    onPress={() => navigation.navigate(Home)}
+                    //onPress={() => navigation.navigate(Home)}
+                    onPress={() => OkButton()}
                 />
             </View>
             <Text>{text}</Text>
