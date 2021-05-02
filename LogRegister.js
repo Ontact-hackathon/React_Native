@@ -3,15 +3,18 @@ import { useState } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
 export default function LogRegister({ navigation }) {
-    const [username, setUsername] = useState('');
+    const [ID, setID] = useState('');
     const [password, setPassword] = useState('');
+    const [validpw, setValipw] = useState('');
+    const [bank, setBank] = useState('');
+    const [account, setAccount] = useState('');
 
     return (
         <View style={styles.container}>
             <TextInput
-                value={username}
-                onChangeText={(username) => setUsername(username)}
-                placeholder={'Username'}
+                value={ID}
+                onChangeText={(ID) => setID(ID)}
+                placeholder={'ID'}
                 style={styles.input}
             />
             <TextInput
@@ -19,6 +22,25 @@ export default function LogRegister({ navigation }) {
                 onChangeText={(password) => setPassword(password)}
                 placeholder={'Password'}
                 secureTextEntry={true}
+                style={styles.input}
+            />
+            <TextInput
+                value={validpw}
+                onChangeText={(validpw) => setValipw(validpw)}
+                placeholder={'Password'}
+                secureTextEntry={true}
+                style={styles.input}
+            />
+            <TextInput
+                value={bank}
+                onChangeText={(bank) => setBank(bank)}
+                placeholder={"OO은행"}
+                style={styles.input}
+            />
+            <TextInput
+                value={account}
+                onChangeText={(account) => setAccount(account)}
+                placeholder={'account'}
                 style={styles.input}
             />
             <View style={{ flexDirection: 'row' }}>
@@ -41,14 +63,15 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        // backgroundColor: '#ecf0f1',
+        backgroundColor: 'white',
     },
     input: {
         width: 200,
         height: 44,
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'skyblue',
         marginBottom: 10,
     },
 });

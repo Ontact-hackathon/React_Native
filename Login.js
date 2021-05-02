@@ -43,14 +43,15 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        // backgroundColor: '#ecf0f1',
+        backgroundColor: 'white',
     },
     input: {
         width: 200,
         height: 44,
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'skyblue',
         marginBottom: 10,
     },
 });
