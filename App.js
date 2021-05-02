@@ -14,8 +14,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="LogRegister" component={LogRegister}/>
+        {/* <Stack.Screen name="Login" component={Login}/>
+        <Stack.Screen name="LogRegister" component={LogRegister}/> */}
         <Stack.Screen name="BNavigation" component={BNavigation}/>
       </Stack.Navigator>
     </NavigationContainer>
