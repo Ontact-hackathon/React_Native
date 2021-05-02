@@ -11,35 +11,27 @@ export default function Register({navigation}) {
     const [bank, setBank] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    const [text, setText] = useState('Waiting..');
     const registerRef = useRef();
     // 위치
     const [location, setLocation] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
 
-    useEffect(() => {
-        (async () => {
-            let {status} = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
+    const getLocation = async () => {
+        try {
+          await Location.requestForegroundPermissionsAsync();
+          const {
+            coords: { latitude, longitude }
+          } = await Location.getCurrentPositionAsync();
+          setLatitude(latitude)
+          setLongitude(longitude);
+        } catch (error) {
+          Alert.alert("Can't find you.", "So sad");
+        }
+      }
 
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-        })().then(
-            function(){
-                if (errorMsg) {
-                    setText(errorMsg);
-                } else if (location) {
-                    setText('위치 반환 성공');
-                    setLatitude(JSON.stringify(location.coords.latitude));
-                    setLongitude(JSON.stringify(location.coords.longitude));
-                }
-            }
-        )
-
-    }, []);
+      useEffect(() =>{
+            getLocation();
+        },[])
 
     // 버튼 누르면 db에 저장
     const OkButton = () => {
@@ -104,7 +96,6 @@ export default function Register({navigation}) {
                     onPress={() => OkButton()}
                 />
             </View>
-            <Text>{text}</Text>
        </View>
     )
 }
