@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useState } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { Entypo } from '@expo/vector-icons'; 
 
 export default function LogRegister({ navigation }) {
     const [id, setID] = useState('');
@@ -41,21 +42,23 @@ export default function LogRegister({ navigation }) {
 
         }
     }
-    const CheckIdDuplicate = () => {
+    const GetId = () =>{
         fetch("http://localhost:8080/api/exists/"+id)
         .then(response => response.json())
-        .then(data => setDuplicateId(data.check)
-        )
+        // .then(setDuplicateId(data.check)))
+        .then(function(data){
+            if(data.check == true) {
+                setDuplicateCheck(true)
+                Alert.alert("사용가능합니다.")
+            } else {
+                setDuplicateCheck(false)
+                Alert.alert("다른 아이디를 입력해주세요.")
+            }
+        })
+    }
+    const CheckIdDuplicate = async() => {
+         await GetId();
 
-         console.log(duplicateId)
-         // 한박자 늦게 바뀌는 부분 수정
-         if(duplicateId == true) {
-             setDuplicateCheck(true)
-             Alert.alert("사용가능합니다.")
-         } else {
-             setDuplicateCheck(false)
-             Alert.alert("다른 아이디를 입력해주세요.")
-         }
     }
     return (
         <View style={styles.container}>
@@ -64,13 +67,9 @@ export default function LogRegister({ navigation }) {
                     value={id}
                     onChangeText={(id) => setID(id)}
                     placeholder={'ID'}
-                    style={styles.input}
+                    style={styles.input2}
                 />
-                <Button
-                    title={'중복 체크'}
-                    style={styles.input}
-                    onPress={() => CheckIdDuplicate()}
-                />
+            <Entypo name="check" size={24} color="skyblue" onPress={() => CheckIdDuplicate()}/>
             </View>
             <TextInput
                 value={password}
@@ -125,6 +124,14 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 200,
+        height: 44,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: 'skyblue',
+        marginBottom: 10,
+    },
+    input2: {
+        width: 175,
         height: 44,
         padding: 10,
         borderWidth: 1,

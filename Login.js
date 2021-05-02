@@ -14,23 +14,23 @@ export default function Login({navigation}) {
     const onLogin = () => {
         fetch("http://localhost:8080/api/loginInfo/" + id + "/" + password)
             .then(response => response.json())
-            .then(data => setCheckLogin(data.check)
+            .then(function(data){
+                if(data.check == true) {
+                    //navigation.navigate(BNavigation)
+                    navigation.dispatch(
+                        CommonActions.navigate({
+                            name: 'BNavigation',
+                            params: {
+                                userId: id,
+                            },
+                        })
+                    )
+                } else {
+                    Alert.alert("아이디 또는 비밀번호를 확인해주세요.")
+                }
+            }
             )
-        console.log(checkLogin)
-        // 한박자 늦게 바뀌는 부분 변경
-        if(checkLogin == true) {
-            //navigation.navigate(BNavigation)
-            navigation.dispatch(
-                CommonActions.navigate({
-                    name: 'BNavigation',
-                    params: {
-                        userId: id,
-                    },
-                })
-            )
-        } else {
-            Alert.alert("아이디 또는 비밀번호를 확인해주세요.")
-        }
+
     }
     return (
         <View style={styles.container}>

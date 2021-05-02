@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
 export default function Profile({route}) {
-    const user = route.params.userId;
-    
+    const user = route.params.userId;  
     const [bank, setBank] = useState('');
     const [account, setAccount] = useState('');
     useEffect(() => {
@@ -41,22 +40,23 @@ export default function Profile({route}) {
                     "INQ_CUCD": "KRW"
                 }
             })
-        }).then(response => response.json())
+        })
+        .then(response => response.json())
             .then(function (data) {
-                Alert.alert("잔액 : " + parseInt(data.dataBody.CT_BAL)+"원("+data.dataBody.CUCD+")")
+                Alert.alert('잔액 : ' + parseInt(data.dataBody.CT_BAL)+'원('+data.dataBody.CUCD+')')
             })
     }
     return (
         <View style={styles.container}>
             <TextInput
                 value={bank}
-                editable='false'
+                editable={false}
                 onChangeText={(bank) => setBank(bank)}
                 style={styles.input}
             />
             <TextInput
                 value={account}
-                editable='false'
+                editable={false}
                 onChangeText={(account) => setAccount(account)}
                 style={styles.input}
             />

@@ -47,7 +47,7 @@ export default function BNavigation({route}) {
                         <MaterialCommunityIcons name="face-profile" color={color} size={26} />
                     ),
                 }}
-                // initialParams={{userId: route.params.userId}}
+                initialParams={{userId: route.params.userId}}
             />
         </Tab.Navigator>
     );
