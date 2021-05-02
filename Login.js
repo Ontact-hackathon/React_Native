@@ -3,6 +3,8 @@ import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 import BNavigation from './BNavigation';
 import LogRegister from './LogRegister';
 
+import {CommonActions} from '@react-navigation/native';
+
 export default function Login({navigation}) {
     const [id, setID] = useState('');
     const [password, setPassword] = useState('');
@@ -17,7 +19,15 @@ export default function Login({navigation}) {
         console.log(checkLogin)
         // 한박자 늦게 바뀌는 부분 변경
         if(checkLogin == true) {
-            navigation.navigate(BNavigation)
+            //navigation.navigate(BNavigation)
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'BNavigation',
+                    params: {
+                        userId: id,
+                    },
+                })
+            )
         } else {
             Alert.alert("아이디 또는 비밀번호를 확인해주세요.")
         }

@@ -10,7 +10,7 @@ import Profile from './Profile';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function BNavigation() {
+export default function BNavigation({route}) {
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -47,6 +47,7 @@ export default function BNavigation() {
                         <MaterialCommunityIcons name="face-profile" color={color} size={26} />
                     ),
                 }}
+                initialParams={{userId: route.params.userId}}
             />
         </Tab.Navigator>
     );

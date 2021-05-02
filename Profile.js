@@ -3,50 +3,31 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
-export default function Profile() {
-    const [id, setID] = useState('');
-    const [password, setPassword] = useState('');
-    const [valpw, setValpw] = useState('');
+export default function Profile({route}) {
+    const user = route.params.userId;
+    
     const [bank, setBank] = useState('');
     const [account, setAccount] = useState('');
     useEffect(() => {
-        fetch("http://localhost:8080/api/register", {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                userId: id,
-                userPw: password
-            })
+        fetch("http://localhost:8080/api/userInfo/" + user)
+        .then(response => response.json())
+        .then(function (data) {
+            setBank(data.bank);
+            setAccount(data.account);
         })
-        }, [])
+    },[])
     return (
         <View style={styles.container}>
             <TextInput
-                value={id}
-                editable='false'
-                style={styles.input}
-            />
-            <TextInput
-                value={password}
-                editable='false'
-                style={styles.input}
-            />
-            <TextInput
-                value={valpw}
-                editable='false'
-                style={styles.input}
-            />
-            <TextInput
                 value={bank}
                 editable='false'
+                onChangeText={(bank) => setBank(bank)}
                 style={styles.input}
             />
-
             <TextInput
                 value={account}
                 editable='false'
+                onChangeText={(account) => setAccount(account)}
                 style={styles.input}
             />
         </View>
