@@ -7,23 +7,26 @@ export default function Login({navigation}) {
     const [id, setID] = useState('');
     const [password, setPassword] = useState('');
 
+    const [checkLogin, setCheckLogin] = useState(false);
+
     const onLogin = () => {
-        fetch("http://localhost:8080/api/register", {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                userId: id,
-                userPw: password
-            })
-        }).then()
+        fetch("http://localhost:8080/api/loginInfo/" + id + "/" + password)
+        .then(response => response.json())
+        .then(data => setCheckLogin(data.check)
+        )
+        console.log(checkLogin)
+        // 한박자 늦게 바뀌는 부분 변경
+        if(checkLogin == true) {
+            navigation.navigate(BNavigation)
+        } else {
+            Alert.alert("아이디 또는 비밀번호를 확인해주세요.")
+        }
     }
     return (
         <View style={styles.container}>
             <TextInput
                 value={id}
-                onChangeText={(id) => setID(username)}
+                onChangeText={(id) => setID(id)}
                 placeholder={'ID'}
                 style={styles.input}
             />
@@ -38,7 +41,7 @@ export default function Login({navigation}) {
                 <Button
                     title={'Login'}
                     style={styles.input}
-                    onPress={() => navigation.navigate(BNavigation)}
+                    onPress={() => onLogin()}
                 />
                 <Button
                     title={'Register'}
