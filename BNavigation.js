@@ -6,10 +6,11 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from './Home';
 import Register from './Register';
+import Profile from './Profile';
 
 const Tab = createMaterialBottomTabNavigator();
 
-function MyTabs() {
+export default function BNavigation() {
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -37,12 +38,16 @@ function MyTabs() {
                     ),
                 }}
             />
+            <Tab.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    tabBarLabel: 'Profile',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="face-profile" color={color} size={26} />
+                    ),
+                }}
+            />
         </Tab.Navigator>
-    );
-}
-
-export default function Navigation() {
-    return (
-        <MyTabs />
     );
 }
