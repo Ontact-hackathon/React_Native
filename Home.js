@@ -6,11 +6,18 @@ import MarkerFactory from './MarkerFactory';
 var id =0;
 export default function Home() {
     const [data, setData] = useState([]);
+    const [counter, setCounter] = useState(1);
+    const [loadingStatus, setLoadingStatus] = useState('.');
+    
     useEffect(() => {
+        const intervalId = setInterval(() => {
+            setLoadingStatus(ls => ls + ".");
+          }, 5000);
         fetch("http://localhost:8080/api/register")
         .then(response => response.json())
         .then(data => setData(data))
-    },[])
+        return () => clearInterval(intervalId);
+    },[]);
 
     return (
         <View style={styles.container}>

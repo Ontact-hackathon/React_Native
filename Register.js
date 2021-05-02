@@ -27,14 +27,18 @@ export default function Register({navigation}) {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
-        })();
-    if (errorMsg) {
-        setText(errorMsg);
-    } else if (location) {
-        setText('위치 반환 성공');
-        setLatitude(JSON.stringify(location.coords.latitude));
-        setLongitude(JSON.stringify(location.coords.longitude));
-    }
+        })().then(
+            function(){
+                if (errorMsg) {
+                    setText(errorMsg);
+                } else if (location) {
+                    setText('위치 반환 성공');
+                    setLatitude(JSON.stringify(location.coords.latitude));
+                    setLongitude(JSON.stringify(location.coords.longitude));
+                }
+            }
+        )
+
     }, []);
 
     // 버튼 누르면 db에 저장
