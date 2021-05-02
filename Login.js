@@ -4,15 +4,27 @@ import BNavigation from './BNavigation';
 import LogRegister from './LogRegister';
 
 export default function Login({navigation}) {
-    const [username, setUsername] = useState('');
+    const [id, setID] = useState('');
     const [password, setPassword] = useState('');
 
+    const onLogin = () => {
+        fetch("http://localhost:8080/api/register", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: id,
+                userPw: password
+            })
+        }).then()
+    }
     return (
         <View style={styles.container}>
             <TextInput
-                value={username}
-                onChangeText={(username) => setUsername(username)}
-                placeholder={'Username'}
+                value={id}
+                onChangeText={(id) => setID(username)}
+                placeholder={'ID'}
                 style={styles.input}
             />
             <TextInput
