@@ -7,10 +7,10 @@ export default function Home() {
     const data = [
         {
             "id":1,
-            "store": "qwe",
-            "name": "qwe",
-            "account": "qwe",
-            "bank": "qwe",
+            "store": "맛난 호떡",
+            "name": "김우리",
+            "account": "2003004030020",
+            "bank": "국민은행",
             "latitude": "35.844227",
             "longitude": "127.127468"
         }, {
