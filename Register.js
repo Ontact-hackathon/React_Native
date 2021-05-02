@@ -97,7 +97,6 @@ export default function Register({navigation}) {
                 <Button
                     title={'등록'}
                     style={styles.button}
-                    //onPress={() => navigation.navigate(Home)}
                     onPress={() => OkButton()}
                 />
             </View>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
         height: 70,
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'skyblue',
         marginBottom: 20,
     },
     button: {
