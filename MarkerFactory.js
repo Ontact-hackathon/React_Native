@@ -1,16 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, FlatList, TextInput, Alert, Modal, Pressable, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Send from './Send';
 
-const MakerFactory = ({ store, name, account, bank, latitude, longitude, navigation }) => {
+const MakerFactory = ({ store, name, account, bank, latitude, longitude}) => {
     const [num, setNum] = useState('');
 
     const [modalVisible, setModalVisible] = useState(false);
     const submit = () => {
         setModalVisible(!modalVisible)
-        navigation.navigate(Send);
     }
+
+    // 등록 버튼 누르면 이체 api 실행
+    const OkButton = () => {
+        fetch("https://openapi.wooribank.com:444/oai/wb/v1/trans/executeWooriAcctToWooriAcct", {
+            method: 'POST',
+            headers: {
+                'appKey' : 'l7xxjWg4sknkebVFA20XMzGnQiyRfmpsT01B',
+                'content-type':'application/json'
+            },
+            body: JSON.stringify({
+                "dataHeader": {
+                    "UTZPE_CNCT_IPAD": "10.0.0.1",
+                    "UTZPE_CNCT_MCHR_UNQ_ID": "3B5E6E7B",
+                    "UTZPE_CNCT_TEL_NO_TXT": "01012341234",
+                    "UTZPE_CNCT_MCHR_IDF_SRNO": "IMEI",
+                    "UTZ_MCHR_OS_DSCD": "1",
+                    "UTZ_MCHR_OS_VER_NM": "8.0.0",
+                    "UTZ_MCHR_MDL_NM": "SM-G930S",
+                    "UTZ_MCHR_APP_VER_NM": "1.0.0"
+                  },
+                  "dataBody": {
+                    "WDR_ACNO": "1002123456789",
+                    "TRN_AM": "500000",
+                    "RCV_BKCD": "020",
+                    "RCV_ACNO": "1002987654321",
+                    "PTN_PBOK_PRNG_TXT": "보너스"
+                  }
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
+
     return (
         <View>
         <Marker
@@ -45,6 +76,7 @@ const MakerFactory = ({ store, name, account, bank, latitude, longitude, navigat
                     <Button
                     title={'등록'}
                     style={styles.button}
+                    onPress={() => OkButton()}
                     />
                     
                     <Pressable

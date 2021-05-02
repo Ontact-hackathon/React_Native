@@ -39,7 +39,7 @@ export default function Register({navigation}) {
 
     // 버튼 누르면 db에 저장
     const OkButton = () => {
-        fetch("http://10.55.40.51:8080/api/register", {
+        fetch("http://localhost:8080/api/register", {
             method: 'POST',
             headers: {
                 'content-type':'application/json'

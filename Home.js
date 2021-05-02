@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MarkerFactory from './MarkerFactory';
 
-import Send from './Send';
-
-export default function Home({navigation}) {
+export default function Home() {
     const data = [
         {
             "id":1,
@@ -34,7 +32,7 @@ export default function Home({navigation}) {
                     latitudeDelta: 0.002,
                     longitudeDelta: 0.002,
                 }} >
-                {data.map((obj) => {return (<MarkerFactory key={obj.id} store={obj.store} name={obj.name} account={obj.account} bank={obj.bank} latitude={obj.latitude} longitude={obj.longitude} navigation={navigation}/>)})}
+                {data.map((obj) => {return (<MarkerFactory key={obj.id} store={obj.store} name={obj.name} account={obj.account} bank={obj.bank} latitude={obj.latitude} longitude={obj.longitude}/>)})}
                 {/* <Marker
                     coordinate={{ latitude: 35.844015, longitude: 127.127487 }}
                     image={require('./assets/placeholder2.png')}
