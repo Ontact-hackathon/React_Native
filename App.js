@@ -16,7 +16,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="LogRegister" component={LogRegister}/>
-        <Stack.Screen name="주머니속 현금" component={BNavigation}/>
+        <Stack.Screen name="BNavigation" component={BNavigation}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
