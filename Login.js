@@ -13,9 +13,9 @@ export default function Login({navigation}) {
 
     const onLogin = () => {
         fetch("http://localhost:8080/api/loginInfo/" + id + "/" + password)
-        .then(response => response.json())
-        .then(data => setCheckLogin(data.check)
-        )
+            .then(response => response.json())
+            .then(data => setCheckLogin(data.check)
+            )
         console.log(checkLogin)
         // 한박자 늦게 바뀌는 부분 변경
         if(checkLogin == true) {
