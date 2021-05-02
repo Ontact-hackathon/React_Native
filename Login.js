@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
 import BNavigation from './BNavigation';
 import LogRegister from './LogRegister';
 
@@ -34,6 +34,10 @@ export default function Login({navigation}) {
     }
     return (
         <View style={styles.container}>
+            <Image
+                source = {require('./assets/mark.png')}
+                style={styles.logo}
+            />
             <TextInput
                 value={id}
                 onChangeText={(id) => setID(id)}
@@ -47,7 +51,7 @@ export default function Login({navigation}) {
                 secureTextEntry={true}
                 style={styles.input}
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row' , marginBottom:200}}>
                 <Button
                     title={'Login'}
                     style={styles.input}
@@ -79,4 +83,7 @@ const styles = StyleSheet.create({
         borderColor: 'skyblue',
         marginBottom: 10,
     },
+    logo: {
+        marginBottom:50,
+    }
 });
