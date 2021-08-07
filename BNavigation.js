@@ -7,7 +7,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from './Home';
 import Register from './Register';
-import Profile from './Profile';
+import Chat from './Chat';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -41,7 +41,7 @@ export default function BNavigation({route}) {
             />
             <Tab.Screen
                 name="Chat"
-                component={Profile}
+                component={Chat}
                 options={{
                     tabBarLabel: 'Chat',
                     tabBarIcon: ({ color }) => (
