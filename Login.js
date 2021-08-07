@@ -31,12 +31,11 @@ export default function Login({navigation}) {
                 }
             }
         )
-
     }
     return (
         <View style={styles.container}>
             <Image
-                source = {require('./assets/mark.png')}
+                source = {require('./assets/logo.png')}
                 style={styles.logo}
             />
             <TextInput
@@ -85,6 +84,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     logo: {
-        marginBottom:50,
+        marginBottom:10,
     }
 });

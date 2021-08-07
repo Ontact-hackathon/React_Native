@@ -27,7 +27,7 @@ export default function Home({route}) {
                 {data.map((obj) => {return (<MarkerFactory key={id++} userNum={route.params.userNum} store={obj.store} name={obj.name} account={obj.account} bank={obj.bank} latitude={obj.latitude} longitude={obj.longitude}/>)})}
                 </MapView>
                 <View style={{position:'absolute',top:40, right:30,}}>
-                                    <AntDesign name="reload1" size={24} color="black"  onPress={() => setReload(!reload)}/>
+                <AntDesign name="reload1" size={24} color="black"  onPress={() => setReload(!reload)}/>
                 </View>
 
         </View>
