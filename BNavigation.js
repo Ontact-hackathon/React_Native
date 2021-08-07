@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { Entypo } from '@expo/vector-icons';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
@@ -39,12 +40,12 @@ export default function BNavigation({route}) {
                 }}
             />
             <Tab.Screen
-                name="Profile"
+                name="Chat"
                 component={Profile}
                 options={{
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: 'Chat',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="face-profile" color={color} size={26} />
+                        <Entypo name="chat" size={24} color={color} />
                     ),
                 }}
                 initialParams={{userId: route.params.userId}}
