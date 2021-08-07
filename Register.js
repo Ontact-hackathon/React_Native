@@ -46,8 +46,7 @@ export default function Register({navigation}) {
                 account: account, 
                 bank: bank, 
                 latitude: latitude, 
-                longitude: longitude,
-                money: 0
+                longitude: longitude
             })
         })
         setStore('');
