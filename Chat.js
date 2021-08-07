@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
-export default function Profile({route}) {
+export default function Chat({route}) {
     const user = route.params.userId;  
     const [bank, setBank] = useState('');
     const [account, setAccount] = useState('');
