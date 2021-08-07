@@ -35,7 +35,8 @@ export default function LogRegister({ navigation }) {
                     userId: id,
                     userPw: password,
                     userBank: bank,
-                    userAccount: account
+                    userAccount: account,
+                    money: 10000
                 })
             }).then(Alert.alert("회원가입이 완료됐습니다."))
                 .then(navigation.goBack());

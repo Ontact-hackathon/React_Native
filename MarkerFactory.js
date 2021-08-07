@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, FlatList, TextInput, Alert, Modal, Pressable, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-const MakerFactory = ({ store, name, account, bank, latitude, longitude }) => {
+const MakerFactory = ({ userNum, store, name, account, bank, latitude, longitude }) => {
     const [num, setNum] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const costRef = useRef();
@@ -17,75 +17,23 @@ const MakerFactory = ({ store, name, account, bank, latitude, longitude }) => {
     const OkButton = () => {
         if (num == '')
             Alert.alert("금액을 입력하세요.")
-        else if (bank == "우리은행") {
-            fetch("https://openapi.wooribank.com:444/oai/wb/v1/trans/executeWooriAcctToWooriAcct", {
-                method: 'POST',
-                headers: {
-                    'appKey': 'l7xxjWg4sknkebVFA20XMzGnQiyRfmpsT01B',
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "dataHeader": {
-                        "UTZPE_CNCT_IPAD": "10.0.0.1",
-                        "UTZPE_CNCT_MCHR_UNQ_ID": "3B5E6E7B",
-                        "UTZPE_CNCT_TEL_NO_TXT": "01012341234",
-                        "UTZPE_CNCT_MCHR_IDF_SRNO": "IMEI",
-                        "UTZ_MCHR_OS_DSCD": "1",
-                        "UTZ_MCHR_OS_VER_NM": "8.0.0",
-                        "UTZ_MCHR_MDL_NM": "SM-G930S",
-                        "UTZ_MCHR_APP_VER_NM": "1.0.0"
-                    },
-                    "dataBody": {
-                        "WDR_ACNO": "1002123456789",
-                        "TRN_AM": parseInt(num),
-                        "RCV_BKCD": "020",
-                        "RCV_ACNO": parseInt(account),
-                        "PTN_PBOK_PRNG_TXT": "입금"
-                    }
-                })
-            })
-                .then(response => response.json())
-                .then(function (data) {
-                    var sum = parseInt(data.dataBody.FEE_Am) + parseInt(num);
-                    Alert.alert(data.dataBody.RNPE_FNM + "님에게 " + sum + "원을 입금하셨습니다.\n(당행 입금 수수료 : 0원)")
-                    costRef.current.clear();
-                    setNum('');
-                })
-        }
         else {
-            fetch("https://openapi.wooribank.com:444/oai/wb/v1/trans/executeWooriAcctToOtherAcct", {
-                method: 'POST',
+            fetch("http://localhost:8080/api/bank/" + userNum, {
+                method: 'PUT',
                 headers: {
-                    'appKey': 'l7xxpLGgVKFQY2hkG28k5yo2LtLxPJlLEvPJ',
-                    'content-type': 'application/json'
+                    'content-type':'application/json'
                 },
                 body: JSON.stringify({
-                    "dataHeader": {
-                        "UTZPE_CNCT_IPAD": "10.0.0.1",
-                        "UTZPE_CNCT_MCHR_UNQ_ID": "3B5E6E7B",
-                        "UTZPE_CNCT_TEL_NO_TXT": "01012341234",
-                        "UTZPE_CNCT_MCHR_IDF_SRNO": "IMEI",
-                        "UTZ_MCHR_OS_DSCD": "1",
-                        "UTZ_MCHR_OS_VER_NM": "8.0.0",
-                        "UTZ_MCHR_MDL_NM": "SM-G930S",
-                        "UTZ_MCHR_APP_VER_NM": "1.0.0"
-                    },
-                    "dataBody": {
-                        "WDR_ACNO": "1002123456789",
-                        "TRN_AM": parseInt(num),
-                        "RCV_BKCD": "088",
-                        "RCV_ACNO": parseInt(account),
-                        "PTN_PBOK_PRNG_TXT": "입금"
-                    }
+                    money: parseInt(num)
                 })
             })
-                .then(response => response.json())
-                .then(function (data) {
-                    var sum = parseInt(data.dataBody.FEE_Am) + parseInt(num);
-                    Alert.alert(data.dataBody.RNPE_FNM + "님에게 " + sum + "원을 입금하셨습니다.\n(타행 입금 수수료 : 500원)")
-                    costRef.current.clear();
-                    setNum('');
-                })
+            .then(response => response.json())
+            .then(function (data) {
+                var sum = parseInt(num);
+                Alert.alert(`${sum}원이 결제되었습니다.\n 현재 남은 금액 : ${data}`)
+                costRef.current.clear();
+                setNum('');
+            })
         }
     }
 

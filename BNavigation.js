@@ -28,6 +28,7 @@ export default function BNavigation({route}) {
                         <MaterialCommunityIcons name="home" color={color} size={26} />
                     ),
                 }}
+                initialParams={{userNum: route.params.userNum}}
             />
             <Tab.Screen
                 name="Register"

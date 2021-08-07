@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import MarkerFactory from './MarkerFactory';
 
 var id =0;
-export default function Home() {
+export default function Home({route}) {
     const [data, setData] = useState([]);
     const [reload, setReload] = useState(false);
     
@@ -14,7 +14,6 @@ export default function Home() {
         .then(response => response.json())
         .then(data => setData(data))
     },[reload]);
-
     return (
         <View style={styles.container}>
 
@@ -25,7 +24,7 @@ export default function Home() {
                     latitudeDelta: 0.002,
                     longitudeDelta: 0.002,
                 }} >
-                {data.map((obj) => {return (<MarkerFactory key={id++} store={obj.store} name={obj.name} account={obj.account} bank={obj.bank} latitude={obj.latitude} longitude={obj.longitude}/>)})}
+                {data.map((obj) => {return (<MarkerFactory key={id++} userNum={route.params.userNum} store={obj.store} name={obj.name} account={obj.account} bank={obj.bank} latitude={obj.latitude} longitude={obj.longitude}/>)})}
                 </MapView>
                 <View style={{position:'absolute',top:40, right:30,}}>
                                     <AntDesign name="reload1" size={24} color="black"  onPress={() => setReload(!reload)}/>
