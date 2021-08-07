@@ -17,7 +17,7 @@ export default function BNavigation({route}) {
             initialRouteName="Home"
             activeColor="white"
             labelStyle={{ fontSize: 12 }}
-            barStyle={{ backgroundColor: 'skyblue' }}
+            barStyle={{ backgroundColor: '#7589E1' }}
         >
             <Tab.Screen
                 name="Home"

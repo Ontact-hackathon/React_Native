@@ -80,6 +80,12 @@ const MakerFactory = ({ userNum, store, name, account, bank, latitude, longitude
                                 onPress={() => Cancel()}
                             />
                         </View>
+                        <View>
+                            <Button
+                                title={'사장님과 채팅하기!'}
+                                style={styles.button}
+                            />
+                        </View>
                     </View>
                 </View>
             </Modal>
